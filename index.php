@@ -1,17 +1,19 @@
 <?php
-/**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
- *
- * @package WordPress
- */
+// Version
+define('VERSION', '2.3.0.2');
 
-/**
- * Tells WordPress to load the WordPress theme and output it.
- *
- * @var bool
- */
-define('WP_USE_THEMES', true);
+// Configuration
+if (is_file('config.php')) {
+	require_once('config.php');
+}
 
-/** Loads the WordPress Environment and Template */
-require( dirname( __FILE__ ) . '/wp-blog-header.php' );
+// Install
+if (!defined('DIR_APPLICATION')) {
+	header('Location: install/index.php');
+	exit;
+}
+
+// Startup
+require_once(DIR_SYSTEM . 'startup.php');
+
+start('catalog');
